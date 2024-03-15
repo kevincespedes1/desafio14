@@ -1,0 +1,85 @@
+paths:
+  /api/carts/{cid}/products:
+    get:
+      summary: Obtiene los productos de un carrito LOCAL por su ID 
+      tags:
+        - Cart Local
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito del cual obtener los productos
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Productos del carrito obtenidos exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: ID del carrito
+                    products:
+                      type: array
+                      description: Lista de productos en el carrito
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                            description: Código del producto en el carrito
+                          quantity:
+                            type: integer
+                            description: Cantidad del producto en el carrito
+                          title:
+                            type: string
+                            description: titulo del producto en el carrito
+                          description:
+                            type: string
+                            description: Descripción del producto en el carrito
+        "500":
+          description: Error interno del servidor al intentar obtener los productos del carrito
+
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agregar un producto al carrito
+      tags:
+        - Cart Local
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto a agregar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto agregado al carrito con éxito
+        "500":
+          description: Error interno del servidor
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID del producto
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción del producto

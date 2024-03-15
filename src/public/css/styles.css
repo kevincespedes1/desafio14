@@ -1,0 +1,319 @@
+/* herramientas-------------------------------------------------------------- */
+
+.database-tools-panel1 {
+    position: fixed;
+    width: 300px;
+}
+
+.database-tools-panel {
+    position: relative;
+    width: 300px;
+}
+
+
+.toggle-button-add {
+    position: fixed;
+    top: 30%;
+    left: 0;
+    background-color: #008616;
+    color: white;
+    font-size: 24px;
+}
+
+.toggle-button-del {
+    position: fixed;
+    top: 60%;
+    left: 0;
+    background-color: #ff0000;
+    color: white;
+    font-size: 24px;
+}
+
+.button-del {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.button-add {
+    background-color: #008122;
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#delete-container {
+    position: fixed;
+    bottom: 30%;
+    left: 55px;
+    width: 300px;
+    background-color: rgb(190, 190, 190);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    display: none;
+}
+
+#add-container {
+    position: fixed;
+    bottom: 45%;
+    left: 55px;
+    width: 300px;
+    background-color: rgb(190, 190, 190);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    display: none;
+}
+
+.close-delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.close-add-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.chat-tab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.chat-tab-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    display: none;
+}
+
+.close-chat-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.container-chat-realtimeproducts h2 {
+    border-bottom: solid 1px black;
+
+}
+
+/* ----------------------------------------NAVBAR---------------------- */
+.navbar {
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #343a40;
+}
+
+.navbar-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar-item {
+    margin-right: 20px;
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: #343a40;
+    transition: color 0.3s;
+}
+
+.navbar-link:hover {
+    color: #007bff;
+}
+
+/* ----------------------------------------------pagiancion */
+.pagination-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pagination-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+}
+
+.pagination-button-prev {
+    background-color: #007bff;
+}
+
+.pagination-button-next {
+    background-color: #28a745;
+}
+
+.pagination-page {
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0 auto;
+}
+
+/* -------------------------------------informe */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* ------------------------------ productosss */
+
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-card:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-image img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.product-details h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.product-details p {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.product-details button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-details button:hover {
+    background-color: #0056b3;
+}
