@@ -44,7 +44,7 @@ productsRouter.get('/:pid', async (req, res) => {
 
 productsRouter.post('/', uploader.array('files'), checkPermissions('create'), async (req, res) => {
     try {
-        const userEmail = req.cookies.userEmail; // Accede a la cookie que contiene el correo electrónico del usuario
+        const userEmail = req.cookies.userEmail;
 
         const newProduct = {
             title: req.body.title,

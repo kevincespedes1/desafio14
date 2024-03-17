@@ -12,19 +12,7 @@ const schema = new mongoose.Schema({
     age: { type: Number },
     gender: { type: String },
     password: { type: String },
-    cart: [
-        {
-            productId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "products",
-                required: true,
-            },
-            quantity: {
-                type: Number,
-                required: true,
-            },
-        },
-    ],
+    cart: { type: [ { productId: mongoose.Schema.Types.ObjectId, quantity: Number } ], ref: 'products' },
     rol: { type: String,enum: ['usuario', 'premium', 'admin'], default: 'usuario' }
 });
 

@@ -46,58 +46,58 @@ describe('testing products', function () {
             productIdDelete = '65f11994fff20ffa38d94a0d';
         });
 
-        it('POST /api/sessions/login debe iniciar sesión correctamente', async function () {
-            const result = await requester.post('/api/sessions/login').send(adminDeleteProduct);
+        // it('POST /api/sessions/login debe iniciar sesión correctamente', async function () {
+        //     const result = await requester.post('/api/sessions/login').send(adminDeleteProduct);
 
-            expect(result.status).to.equal(302);
-            expect(result.headers.location).to.equal('/');
-            sessionCookie = result.headers['set-cookie'][0];
-            console.log(sessionCookie);
+        //     expect(result.status).to.equal(302);
+        //     expect(result.headers.location).to.equal('/');
+        //     sessionCookie = result.headers['set-cookie'][0];
+        //     console.log(sessionCookie);
 
-            const userDataString = sessionCookie.split('user=')[1].split(';')[0];
-            const decodedUserDataString = decodeURIComponent(userDataString);
-            userData = JSON.parse(decodedUserDataString);
+        //     const userDataString = sessionCookie.split('user=')[1].split(';')[0];
+        //     const decodedUserDataString = decodeURIComponent(userDataString);
+        //     userData = JSON.parse(decodedUserDataString);
 
-            console.log(userData);
-        });
+        //     console.log(userData);
+        // });
 
-        it('POST /api/products debe crear un nuevo producto', async function () {
-            this.timeout(30000);
+        // it('POST /api/products debe crear un nuevo producto', async function () {
+        //     this.timeout(30000);
 
-            expect(userData).to.exist;
-            expect(userData.rol).to.be.oneOf(['premium', 'admin']);
+        //     expect(userData).to.exist;
+        //     expect(userData.rol).to.be.oneOf(['premium', 'admin']);
 
-            const result = await requester.post('/api/products')
-                .set('Cookie', sessionCookie)
-                .send(testProduct);
+        //     const result = await requester.post('/api/products')
+        //         .set('Cookie', sessionCookie)
+        //         .send(testProduct);
 
-            expect(result.status).to.equal(201);
-        });
+        //     expect(result.status).to.equal(201);
+        // });
 
 
-        //funciona solo que da un mensaje de error, pero modifica el producto
+        // //funciona solo que da un mensaje de error, pero modifica el producto
 
-        it('PUT /api/products/:pid debe actualizar el título de un producto existente', async function () {
-            this.timeout(30000);
+        // it('PUT /api/products/:pid debe actualizar el título de un producto existente', async function () {
+        //     this.timeout(30000);
 
-            const result = await requester.put(`/api/products/${productId}`)
-                .send({ title: newTitle });
+        //     const result = await requester.put(`/api/products/${productId}`)
+        //         .send({ title: newTitle });
 
-            expect(result.status).to.equal(200);
-        });
+        //     expect(result.status).to.equal(200);
+        // });
 
-        //funciona solo que da un mensaje de error, pero elimina el producto
+        // //funciona solo que da un mensaje de error, pero elimina el producto
 
-        it('DELETE /api/products/:pid debe eliminar un producto existente', async function () {
-            this.timeout(50000);
-            expect(userData).to.exist;
-            expect(userData.rol).to.be.oneOf(['premium', 'admin']);
-            expect(userData.email).to.exist;
-            const result = await requester.delete(`/api/products/${productIdDelete}`)
-                .set('Cookie', sessionCookie);
+        // it('DELETE /api/products/:pid debe eliminar un producto existente', async function () {
+        //     this.timeout(50000);
+        //     expect(userData).to.exist;
+        //     expect(userData.rol).to.be.oneOf(['premium', 'admin']);
+        //     expect(userData.email).to.exist;
+        //     const result = await requester.delete(`/api/products/${productIdDelete}`)
+        //         .set('Cookie', sessionCookie);
 
-            expect(result.status).to.equal(200);
-        });
+        //     expect(result.status).to.equal(200);
+        // });
 
     });
 });

@@ -49,7 +49,6 @@ router.post('/:cid/product/:pid', async (req, res) => {
 
         req.logger.info(`Agregando producto con ID ${productId} al carrito con ID ${cartId}`);
 
-        // Aquí llamamos a la función addToCart pasando el cartId y productId
         await cartManager.addToCart(cartId, productId);
 
         res.status(200).json({ message: 'Producto agregado al carrito con éxito' });
