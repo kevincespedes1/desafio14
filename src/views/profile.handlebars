@@ -68,6 +68,10 @@
         .user-info p {
             margin: 10px 0;
         }
+        a{
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 
@@ -103,10 +107,12 @@
             </form>
         </div>
         {{else}}
+            <div class="button-container">
+                <button>
+                <a href="/api/users/{{user._id}}/documents" class="btn">Subir archivos</a>
+                </button>
+            </div>
         <div class="button-container">
-            <form action="#" method="put">
-                <button id="rol" value={{user.rol}} onclick="toggleUserRole('{{user._id}}')">Cambiar Rol</button>
-            </form>
         </div>
         {{/if}}
         <div class="user-info">
@@ -125,28 +131,3 @@
 </body>
 
 </html>
-
-<script>
-    function toggleUserRole(userId) {
-        const rol = document.getElementById('rol').value
-        console.log(rol)
-        fetch(`/api/users/premium/${userId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No se pudo cambiar el rol del usuario');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data.message);
-            })
-            .catch(error => {
-                console.error('Error al cambiar el rol del usuario:', error);
-            });
-    }
-</script>

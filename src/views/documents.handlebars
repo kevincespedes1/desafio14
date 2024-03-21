@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Documentos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+
+        .main-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #666;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .upload-container {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        .upload-icon {
+            color: red;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            color: green;
+            margin-top: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            /* Hacer el texto más negrita */
+        }
+
+        p {
+            margin: 10px 0;
+            font-weight: bold;
+            /* Hacer el texto más negrita */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-logo">Mi Tienda Online</a>
+            <ul class="navbar-menu">
+                <li class="navbar-item">
+                    <a href="/" class="navbar-link">Inicio</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/realtimeproducts" class="navbar-link">Productos en tiempo real</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/profile" class="navbar-link">Mi Perfil</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/cart" class="navbar-link">Carrito</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-container">
+        <h1>Documentos de {{userName.first_name}}</h1>
+        <p>Identificación: </p>
+        <span>{{userDocs.identification.name}}</span>
+        <p>Comprobante de domicilio: </p>
+        <span>{{userDocs.proof_of_address.name}}</span>
+        <p>Comprobante de estado de cuenta: </p>
+        <span>{{userDocs.bank_statement.name}}</span>
+
+        <h2>Subir Documentos</h2>
+        <form id="uploadForm" action="/api/users/{{userId}}/documents" method="POST" enctype="multipart/form-data">
+            <div class="upload-container">
+                <label for="identification">Identificación:</label>
+                <input type="file" id="identification" name="identification">
+                <span id="identificationIcon" class="upload-icon">&#10006;</span>
+            </div>
+            <div class="upload-container">
+                <label for="proof_of_address">Comprobante de domicilio:</label>
+                <input type="file" id="proof_of_address" name="proof_of_address">
+                <span id="proofOfAddressIcon" class="upload-icon">&#10006;</span>
+            </div>
+            <div class="upload-container">
+                <label for="bank_statement">Comprobante de estado de cuenta:</label>
+                <input type="file" id="bank_statement" name="bank_statement">
+                <span id="bankStatementIcon" class="upload-icon">&#10006;</span>
+            </div>
+            <button type="submit" id="submitBtn">Subir</button>
+        </form>
+        <button onclick="toggleUserRole('{{userId}}')">Cambiar a Premium</button>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            document.getElementById('identificationIcon').innerHTML = '&#8987;';
+            document.getElementById('proofOfAddressIcon').innerHTML = '&#8987;';
+            document.getElementById('bankStatementIcon').innerHTML = '&#8987;';
+
+            try {
+                const response = await fetch(`/api/users/{{userId}}/documents`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al subir los archivos.');
+                }
+
+                const data = await response.json();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: data.message,
+                    confirmButtonText: 'Aceptar'
+                });
+
+                if (document.getElementById('identification').files.length > 0) {
+                    document.getElementById('identificationIcon').innerHTML = '&#10003;';
+                } else {
+                    document.getElementById('identificationIcon').innerHTML = '&#10006;';
+                }
+
+                if (document.getElementById('proof_of_address').files.length > 0) {
+                    document.getElementById('proofOfAddressIcon').innerHTML = '&#10003;';
+                } else {
+                    document.getElementById('proofOfAddressIcon').innerHTML = '&#10006;';
+                }
+
+                if (document.getElementById('bank_statement').files.length > 0) {
+                    document.getElementById('bankStatementIcon').innerHTML = '&#10003;';
+                } else {
+                    document.getElementById('bankStatementIcon').innerHTML = '&#10006;';
+                }
+
+            } catch (error) {
+                console.error('Error al subir documentos:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Hubo un error al subir los documentos. Por favor, inténtalo de nuevo más tarde.',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+        });
+        function toggleUserRole(userId) {
+            fetch(`/api/users/premium/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.status === 400) {
+                        return response.json().then(data => {
+                            throw new Error(data.message);
+                        });
+                    }
+                    if (!response.ok) {
+                        throw new Error('No se pudo cambiar el rol del usuario');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: data.message,
+                        confirmButtonText: 'Aceptar'
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cambiar el rol del usuario:', error.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: error.message,
+                        confirmButtonText: 'Aceptar'
+                    });
+                });
+        }
+
+    </script>
+</body>
+
+</html>

@@ -13,7 +13,21 @@ const schema = new mongoose.Schema({
     gender: { type: String },
     password: { type: String },
     cart: { type: [ { productId: mongoose.Schema.Types.ObjectId, quantity: Number } ], ref: 'products' },
-    rol: { type: String,enum: ['usuario', 'premium', 'admin'], default: 'usuario' }
+    rol: { type: String,enum: ['usuario', 'premium', 'admin'], default: 'usuario' },
+    documents: {
+        identification: {
+            name: String,
+            reference: String
+        },
+        proof_of_address: {
+            name: String,
+            reference: String
+        },
+        bank_statement: {
+            name: String,
+            reference: String
+        }
+    },    last_connection: { type: String, default: Date.now } 
 });
 
 schema.pre('save', function(next) {

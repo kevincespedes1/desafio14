@@ -52,6 +52,10 @@ export const loginUser = async (req, res) => {
 
         const match = await bcrypt.compare(password, user.password);
         if (match) {
+
+            user.last_connection = new Date();
+            await user.save();
+
             req.session.user = user;
             res.cookie('user', JSON.stringify(user), { maxAge: 90000000, httpOnly: true });
             res.redirect('/');
@@ -75,5 +79,29 @@ export const getCurrentUser = async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+};
+
+export const logoutUser = async (req, res) => {
+    try {
+        // Actualizar la última conexión al cerrar sesión
+        if (req.session.user) {
+            const user = await UserModel.findById(req.session.user._id);
+            user.last_connection = new Date();
+            await user.save();
+        }
+
+        // Eliminar la sesión y redireccionar
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error al destruir la sesión:', err);
+                return res.status(500).json({ message: 'Error al cerrar sesión' });
+            }
+            res.clearCookie('user');
+            res.redirect('/login'); // Redirecciona a donde quieras
+        });
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+        res.status(500).json({ message: 'Error al cerrar sesión' });
     }
 };

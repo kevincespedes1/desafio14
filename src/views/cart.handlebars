@@ -193,9 +193,19 @@
             });
 
             if (response.ok) {
-                alert('Todos los productos han sido eliminados del carrito correctamente');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'Todos los productos han sido eliminados del carrito correctamente',
+                    confirmButtonText: 'Aceptar'
+                });
             } else {
-                alert('Error al eliminar todos los productos del carrito');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al eliminar todos los productos del carrito',
+                    confirmButtonText: 'Aceptar'
+                });
             }
         } catch (error) {
             console.error('Error:', error);

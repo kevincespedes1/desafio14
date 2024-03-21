@@ -10,6 +10,7 @@ import { validateToken } from '../utils/tokenValidator.js';
 import bcrypt from 'bcrypt';
 
 import jwt from 'jsonwebtoken';
+import { logoutUser } from '../controllers/session.controller.js';
 
 const userController = new UserController()
 dotenv.config();
@@ -152,14 +153,8 @@ router.post('/reset-password', async (req, res) => {
 });
 
 
-router.post('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.redirect('/profile');
-        }
-        res.redirect('/login');
-    });
-});
+router.post('/logout', logoutUser);
+
 
 
 

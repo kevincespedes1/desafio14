@@ -4,25 +4,6 @@ import productModel from "../dao/models/products.model.js";
 export default class UserController {
     constructor() {
     }
-
-    async toggleUserRole(req, res) {
-        try {
-            const userId = req.params.uid;
-            const user = await UserModel.findById(userId);
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-
-            user.rol = user.rol === 'usuario' ? 'premium' : 'usuario';
-
-            await user.save();
-            return res.status(200).json({ message: 'User role updated successfully', user });
-        } catch (error) {
-            console.error('Error:', error);
-            return res.status(500).json({ message: 'Internal server error' });
-        }
-    }
-
     async addToCart(userId, productId) {
         try {
             const user = await UserModel.findById(userId);
